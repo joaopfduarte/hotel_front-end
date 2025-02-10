@@ -32,17 +32,28 @@ function ReservationForm({ id }) {
 
   function cadastrarReserva(e) {
     e.preventDefault();
-    
+
     const reservation = {
-      responsavel,         // Responsável
-      suite,               // Suíte
-      valor,               // Valor
-      dataReserva,        // Data da Reserva
-      horarioReserva,     // Horário da Reserva
-      guest: { id: guestId } // Hóspede (com id)
+      id: id || null,
+      responsavel,
+      suite,
+      valor,
+      dataReserva,
+      horarioReserva,
+      guest: { id: guestId },
     };
 
-    console.log(JSON.stringify(reservation));
+    if (id && !guestId) {
+      alert("O ID do hóspede é obrigatório para atualização.");
+      return;
+    }
+
+    if (id && !id.trim()) {
+      alert("O ID da reserva é obrigatório para atualização.");
+      return;
+    }
+
+    console.log("Enviando reserva:", JSON.stringify(reservation));
 
     const reservationApi = new ReservationApi();
     if (id) {

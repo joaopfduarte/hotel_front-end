@@ -8,20 +8,29 @@ class BaseApi {
 
     fetch(url, {
       method: method,
-      mode: "cors", // no-cors, *cors, same-origin
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     })
-      .then((resp) => resp.json())
+      .then(async (resp) => {
+        const contentType = resp.headers.get("content-type");
+        if (!resp.ok) {
+          const errorMsg = await resp.text(); // Trata erros que não são JSON
+          throw new Error(errorMsg);
+        }
+        return contentType && contentType.includes("application/json")
+          ? resp.json()
+          : {};
+      })
       .then((data) => {
         console.log(data);
         if (setData) {
           setData(data);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("Erro:", err.message));
   }
 }
 

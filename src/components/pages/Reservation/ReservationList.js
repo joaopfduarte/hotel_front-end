@@ -2,7 +2,7 @@ import { Button, Col, Form, Modal, Row, Stack, Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import { Link, useLocation } from "react-router-dom";
 import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReservationApi from "../../api/ReservationApi";
 
 function ReservationList() {
@@ -39,17 +39,21 @@ function ReservationList() {
     consultarEPreencherTabela();
   }, [location.pathname]);
 
-  function consultarEPreencherTabela() {
+  const consultarEPreencherTabela = useCallback(() => {
     if (searchText.trim().length > 0) {
       reservationApi.getReservationsByText(setReservationList, searchText);
     } else {
       reservationApi.getReservations(setReservationList);
     }
-  }
+  }, [searchText, reservationApi]); // Adiciona as dependências usadas
+  
+  useEffect(() => {
+    consultarEPreencherTabela();
+  }, [location.pathname, consultarEPreencherTabela]);
 
   return (
     <>
-      <Container>
+      <Container style={{ paddingTop: "70px" }}>
         <br />
         <Row>
           <Col xl={10}>
