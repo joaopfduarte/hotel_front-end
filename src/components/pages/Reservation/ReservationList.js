@@ -56,7 +56,7 @@ function ReservationList() {
             <Form.Group className="mb-3" controlId="searchText">
               <Form.Control
                 type="text"
-                placeholder="Responsável ou Suíte"
+                placeholder="Responsável"
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </Form.Group>

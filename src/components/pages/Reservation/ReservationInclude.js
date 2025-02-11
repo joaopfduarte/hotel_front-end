@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
 import ReservationForm from "./ReservationForm";
+import Container from "react-bootstrap/Container";
+import { Breadcrumb } from "react-bootstrap";
 
 function ReservationInclude() {
   return (
-    <>
-      <Link to={"/"}>Home</Link> /{" "}
-      <Link to={"/reservation/list"}>Lista de reservas</Link> / Incluir reserva
-      <h1>Incluir Reserva:</h1>
-      <br />
+    <Container style={{ paddingTop: "70px" }}>
+      <Breadcrumb>
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
+          Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/reservation/list" }}>
+          Lista de Reservas
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Incluir Reserva</Breadcrumb.Item>
+      </Breadcrumb>
+
+      <h1 className="text-center my-4">Incluir Reserva</h1>
       <ReservationForm />
-    </>
+    </Container>
   );
 }
 

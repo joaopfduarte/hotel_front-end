@@ -1,17 +1,25 @@
 import { Link, useParams } from "react-router-dom";
 import ReservationForm from "./ReservationForm";
+import { Container, Breadcrumb } from "react-bootstrap";
 
 function ReservationChange() {
-  const { id } = useParams(); //Utilizado a partir da versao 6 do react-router.
+  const { id } = useParams(); // Utilizado a partir da versão 6 do react-router.
 
   return (
-    <>
-      <Link to={"/"}>Home</Link> /{" "}
-      <Link to={"/reservation/list"}>Lista de Reservas</Link> / Alterar reserva
-      <h1>Alterar reserva:</h1>
-      <br />
+    <Container style={{ paddingTop: "70px" }}>
+      <Breadcrumb>
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
+          Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/reservation/list" }}>
+          Lista de Reservas
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Alterar Reserva</Breadcrumb.Item>
+      </Breadcrumb>
+
+      <h1 className="text-center mb-4">Alterar Reserva</h1>
       <ReservationForm id={id} />
-    </>
+    </Container>
   );
 }
 
