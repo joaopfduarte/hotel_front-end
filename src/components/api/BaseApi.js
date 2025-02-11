@@ -17,7 +17,7 @@ class BaseApi {
       .then(async (resp) => {
         const contentType = resp.headers.get("content-type");
         if (!resp.ok) {
-          const errorMsg = await resp.text(); // Trata erros que não são JSON
+          const errorMsg = await resp.text(); 
           throw new Error(errorMsg);
         }
         return contentType && contentType.includes("application/json")

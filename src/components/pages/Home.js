@@ -1,6 +1,10 @@
 import { Container, Card, Button } from "react-bootstrap";
 
 function Home() {
+  const handleRedirect = () => {
+    window.location.href = "http://localhost:3002/reservation/list";
+  };
+
   return (
     <Container className="d-flex min-vh-100 justify-content-center align-items-center bg-light p-4">
       <Card style={{ maxWidth: "600px" }} className="shadow-lg p-4">
@@ -19,7 +23,7 @@ function Home() {
             </li>
           </ul>
           <div className="d-flex justify-content-center mt-4">
-            <Button variant="primary" size="lg">Acessar Reservas</Button>
+            <Button variant="primary" size="lg" onClick={handleRedirect}>Acessar Reservas</Button>
           </div>
         </Card.Body>
       </Card>
