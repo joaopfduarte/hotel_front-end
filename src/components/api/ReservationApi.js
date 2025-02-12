@@ -26,21 +26,21 @@ class ReservationApi extends BaseApi {
     const method = "POST";
     const url = `${this.baseUrl}api/v1/reservation`;
     console.log(url);
-    super.myFetch({}, method, url, reservation);
+    return super.myFetch(null, method, url, reservation);
   }
 
   alterarReservation(reservation) {
     const method = "PUT";
     const url = `${this.baseUrl}api/v1/reservation`;
     console.log(url);
-    super.myFetch({}, method, url, reservation);
+    return super.myFetch(null, method, url, reservation);
   }
 
   excluir(id) {
     const method = "DELETE";
     const url = `${this.baseUrl}api/v1/reservation/${id}`;
     console.log(url);
-    super.myFetch({}, method, url);
+    return super.myFetch(null, method, url);
   }
 }
 

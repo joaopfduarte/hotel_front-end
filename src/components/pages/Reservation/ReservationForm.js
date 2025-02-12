@@ -1,4 +1,4 @@
-import { Col, Row, Form, Button, Stack, Card } from "react-bootstrap";
+import { Col, Row, Form, Button, Stack, Card, Alert } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,15 +11,16 @@ function ReservationForm({ id }) {
   const [dataReserva, setDataReserva] = useState("");
   const [horarioReserva, setHorarioReserva] = useState("");
   const [guestId, setGuestId] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   function setReservation(reservation) {
-    setResponsavel(reservation.responsavel);
-    setSuite(reservation.suite);
-    setValor(reservation.valor);
-    setDataReserva(reservation.dataReserva);
-    setHorarioReserva(reservation.horarioReserva);
-    setGuestId(reservation.guest.id);
+    setResponsavel(reservation.responsavel || "");
+    setSuite(reservation.suite || "");
+    setValor(reservation.valor || 0);
+    setDataReserva(reservation.dataReserva || "");
+    setHorarioReserva(reservation.horarioReserva || "");
+    setGuestId(reservation.guest ? reservation.guest.id : "");
   }
 
   useEffect(() => {
@@ -53,27 +54,49 @@ function ReservationForm({ id }) {
     }
 
     const reservationApi = new ReservationApi();
-    if (id) {
-      reservationApi.alterarReservation(reservation);
-    } else {
-      reservationApi.incluirReservation(reservation);
-    }
+    const apiCall = id
+      ? reservationApi.alterarReservation(reservation)
+      : reservationApi.incluirReservation(reservation);
 
-    navigate(`/reservation/list`);
+    apiCall
+      .then(() => navigate("/reservation/list"))
+      .catch((error) => {
+        console.error("Erro ao processar a reserva:", error.message);
+        setErrorMessage(error.message);
+      });
   }
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "90vh" }}>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: "90vh" }}
+    >
       <Card style={{ width: "100%", maxWidth: "500px" }} className="shadow p-4">
         <Card.Body>
           <Card.Title className="text-center mb-4 fw-bold">
             {id ? "Alterar Reserva" : "Nova Reserva"}
           </Card.Title>
+
+          {errorMessage && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorMessage("")}
+              dismissible
+            >
+              {errorMessage}
+            </Alert>
+          )}
+
           <Form onSubmit={cadastrarReserva}>
             {id && (
               <Form.Group className="mb-3" controlId="id">
                 <Form.Label>ID da Reserva</Form.Label>
-                <Form.Control plaintext readOnly defaultValue={id} className="fw-bold" />
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={id}
+                  className="fw-bold"
+                />
               </Form.Group>
             )}
 
@@ -143,7 +166,11 @@ function ReservationForm({ id }) {
               />
             </Form.Group>
 
-            <Stack direction="horizontal" gap={3} className="justify-content-center">
+            <Stack
+              direction="horizontal"
+              gap={3}
+              className="justify-content-center"
+            >
               <Link to="/reservation/list">
                 <Button variant="outline-danger">Cancelar</Button>
               </Link>

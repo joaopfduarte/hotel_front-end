@@ -3,7 +3,7 @@ import ReservationForm from "./ReservationForm";
 import { Container, Breadcrumb } from "react-bootstrap";
 
 function ReservationChange() {
-  const { id } = useParams(); // Utilizado a partir da versão 6 do react-router.
+  const { id } = useParams(); 
 
   return (
     <Container style={{ paddingTop: "70px" }}>

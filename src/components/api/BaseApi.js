@@ -4,9 +4,9 @@ class BaseApi {
   }
 
   myFetch(setData, method, url, body) {
-    console.log("BaseApi.myFetch(method: " + method + ", url: " + url);
+    console.log("BaseApi.myFetch(method: " + method + ", url: " + url + ")");
 
-    fetch(url, {
+    return fetch(url, {
       method: method,
       mode: "cors",
       headers: {
@@ -17,7 +17,7 @@ class BaseApi {
       .then(async (resp) => {
         const contentType = resp.headers.get("content-type");
         if (!resp.ok) {
-          const errorMsg = await resp.text(); 
+          const errorMsg = await resp.text();
           throw new Error(errorMsg);
         }
         return contentType && contentType.includes("application/json")
@@ -29,8 +29,12 @@ class BaseApi {
         if (setData) {
           setData(data);
         }
+        return data;
       })
-      .catch((err) => console.log("Erro:", err.message));
+      .catch((err) => {
+        console.log("Erro:", err.message);
+        throw err;
+      });
   }
 }
 
