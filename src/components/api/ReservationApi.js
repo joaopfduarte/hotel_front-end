@@ -26,21 +26,39 @@ class ReservationApi extends BaseApi {
     const method = "POST";
     const url = `${this.baseUrl}api/v1/reservation`;
     console.log(url);
-    return super.myFetch(null, method, url, reservation);
+    return super
+      .myFetch(null, method, url, reservation)
+      .then(() => {
+        window.location.reload();
+        alert('Reserva incluída com sucesso!');
+      })
+      .catch((error) => alert(`Erro ao incluir reserva: ${error.message}`));
   }
 
   alterarReservation(reservation) {
     const method = "PUT";
     const url = `${this.baseUrl}api/v1/reservation`;
     console.log(url);
-    return super.myFetch(null, method, url, reservation);
+    return super
+      .myFetch(null, method, url, reservation)
+      .then(() => {
+        window.location.reload();
+        alert('Reserva alterada com sucesso!');
+      })
+      .catch((error) => alert(`Erro ao alterar reserva: ${error.message}`));
   }
 
   excluir(id) {
     const method = "DELETE";
     const url = `${this.baseUrl}api/v1/reservation/${id}`;
     console.log(url);
-    return super.myFetch(null, method, url);
+    return super
+      .myFetch(null, method, url)
+      .then(() => {
+        window.location.reload();
+        alert('Reserva excluída com sucesso!');
+      })
+      .catch((error) => alert(`Erro ao excluir reserva: ${error.message}`));
   }
 }
 
