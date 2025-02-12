@@ -26,21 +26,21 @@ class GuestApi extends BaseApi {
     const method = "POST";
     const url = `${this.baseUrl}api/v1/guest`;
     console.log(url);
-    super.myFetch({}, method, url, guest);
+    return super.myFetch(null, method, url, guest);
   }
 
   alterarGuest(guest) {
     const method = "PUT";
     const url = `${this.baseUrl}api/v1/guest`;
     console.log(url);
-    super.myFetch({}, method, url, guest);
+    return super.myFetch(null, method, url, guest);
   }
 
   excluir(id) {
     const method = "DELETE";
     const url = `${this.baseUrl}api/v1/guest/${id}`;
     console.log(url);
-    super.myFetch({}, method, url);
+    return super.myFetch(null, method, url);
   }
 }
 

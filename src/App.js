@@ -8,6 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReservationInclude from "./components/pages/Reservation/ReservationInclude";
 import ReservationChange from "./components/pages/Reservation/ReservationChange";
 
+import GuestList from "./components/pages/Guest/GuestList";
+import GuestInclude from "./components/pages/Guest/GuestInclude";
+import GuestChange from "./components/pages/Guest/GuestChange";
 
 function App() {
   return (
@@ -24,6 +27,13 @@ function App() {
               <Route exact path="list" element={<ReservationList />} />
               <Route exact path="incluir" element={<ReservationInclude />} />
               <Route exact path="alterar/:id" element={<ReservationChange />} />
+            </Route>
+
+            <Route path="/guest">
+              <Route exact path="" element={<GuestList />} />
+              <Route exact path="list" element={<GuestList />} />
+              <Route exact path="incluir" element={<GuestInclude />} />
+              <Route exact path="alterar/:id" element={<GuestChange />} />
             </Route>
 
           </Routes>
